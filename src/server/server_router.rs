@@ -1,9 +1,9 @@
+use crate::responses::response::Response;
 use rocket::serde::json::Json;
-use crate::utils;
 
 #[get("/health")]
-pub fn health() -> Json<utils::common::Response<String>> {
-    let resp = utils::common::Response {
+pub fn health() -> Json<Response<String>> {
+    let resp = Response {
         message: String::from("server is up"),
         ok: bool::from(true),
         data: None,

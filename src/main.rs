@@ -1,13 +1,18 @@
-mod server;
+mod base_schema;
+mod responses;
 mod users;
-mod utils;
+mod server;
+mod libraries;
 
 #[macro_use]
 extern crate rocket;
 
 #[launch]
 fn rocket() -> _ {
+    let pool = libraries::db_connection::establish_connection();
+
     rocket::build()
+        .manage(pool)
         .mount("/", routes![server::server_router::health])
         .mount(
             "/users",
